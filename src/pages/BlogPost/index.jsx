@@ -1,4 +1,3 @@
-import { AppLayout } from "../../layouts/App"
 import { posts } from "../Feed/data"
 import styles from './blogpost.module.css'
 import { ThumbsUpButton } from "../../components/CardPost/ThumbsUpButton"
@@ -17,7 +16,6 @@ export const BlogPost = () => {
     const post = posts.find(p=> p.slug == slug)
 
     return (
-        <AppLayout>
             <main className={styles.main}>
                 <article className={styles.card}>
                     <header className={styles.header}>
@@ -60,6 +58,5 @@ export const BlogPost = () => {
                 </div>
                 <CommentList comments={post.comments} />
             </main>
-        </AppLayout>
     )
 }

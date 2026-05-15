@@ -3,7 +3,6 @@ import { Checkbox } from "../../components/Checkbox";
 import { Input } from "../../components/Input";
 import { Label } from "../../components/Label";
 import Typography from "../../components/Typography";
-import { AuthLayout } from "../../layouts/Auth";
 import { Button } from "../../components/Button";
 import banner from "./banner-register.png";
 import { IconArrowFoward } from "../../components/icons/IconArrowFoward";
@@ -37,7 +36,6 @@ export const Register = () => {
     };
 
     return (
-      <AuthLayout>
         <AuthFormContainer bannerSrc={banner}>
           <Typography variant="h1" color="--offwhite">
             Cadastro
@@ -90,7 +88,7 @@ export const Register = () => {
             </Link>
           </footer>
         </AuthFormContainer>
-      </AuthLayout>
+
     );
   };
 
