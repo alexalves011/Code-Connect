@@ -1,0 +1,29 @@
+.main {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0 16px;
+}
+
+.texto {
+  text-align: center;
+}
+
+.img {
+  width: 30rem;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+
+.link {
+  color: var(--light-gray);
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
