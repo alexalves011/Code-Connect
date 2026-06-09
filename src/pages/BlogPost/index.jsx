@@ -1,8 +1,7 @@
 import { posts } from "../Feed/data";
 import styles from "./blogpost.module.css";
 import { ThumbsUpButton } from "../../components/CardPost/ThumbsUpButton";
-import { IconButton } from "../../components/IconButton";
-import { IconChat } from "../../components/icons/IconChat";
+import { ModalComment } from "../../components/ModalComment";
 import { Author } from "../../components/Author";
 import Typography from "../../components/Typography";
 import { CommentList } from "../../components/CommentList";
@@ -18,7 +17,7 @@ export const BlogPost = () => {
 
   useEffect(() => {
     if (!post) {
-      navigate('/not-found');
+      navigate("/not-found");
     }
   }, [navigate, post]);
 
@@ -48,9 +47,7 @@ export const BlogPost = () => {
               <p>{post.likes}</p>
             </div>
             <div className={styles.action}>
-              <IconButton>
-                <IconChat />
-              </IconButton>
+              <ModalComment isEditing={true} />
               <p>{post.comments.length}</p>
             </div>
           </div>

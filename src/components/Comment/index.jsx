@@ -8,5 +8,6 @@ export const Comment = ({ comment }) => {
         <Avatar author={comment.author} />
         <strong>@{comment.author.name}</strong>
         <p>{comment.text}</p>
+        <div className={styles.divider} />
     </div>)
 }
