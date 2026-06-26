@@ -1,4 +1,3 @@
-
 import styles from "./blogpost.module.css";
 import { ThumbsUpButton } from "../../components/CardPost/ThumbsUpButton";
 import { ModalComment } from "../../components/ModalComment";
@@ -8,25 +7,26 @@ import { CommentList } from "../../components/CommentList";
 import ReactMarkdown from "react-markdown";
 import { useParams, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
+import { http } from "../../API";
 
 export const BlogPost = () => {
- const { slug } = useParams();
- const navigate = useNavigate();
+  const { slug } = useParams();
+  const navigate = useNavigate();
 
-  const [post, setPost] = useState(null)
-
-
+  const [post, setPost] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/blog-posts/slug/${slug}`)
-    .then(response => {
-      
-      if(response.status == 404){
-        navigate('not-found')
-      }
-      
-      return response.json()})
-    . then (data => setPost(data))
+    http
+      .get(`blog-posts/slug/${slug}`)
+      .then((response) => {
+        setPost(response.data);
+      })
+
+      .catch((error) => {
+        if (error.status === 404) {
+          navigate("/not-found");
+        }
+      });
   }, [slug, navigate]);
 
   if (!post) {
