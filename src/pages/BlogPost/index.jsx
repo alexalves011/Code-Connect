@@ -12,6 +12,13 @@ import { http } from "../../API";
 export const BlogPost = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
+    const [comments, setcomments] = useState([]);
+
+    const handleNewComment = (comment) => {
+
+  setcomments([comment, ...comments])
+
+}
 
   const [post, setPost] = useState(null);
 
@@ -19,7 +26,9 @@ export const BlogPost = () => {
     http
       .get(`blog-posts/slug/${slug}`)
       .then((response) => {
+        console.log("DADOS DA API:", response.data); // <--- ADICIONE ISSO
         setPost(response.data);
+        setcomments(response.data.comments || []);
       })
 
       .catch((error) => {
@@ -55,8 +64,8 @@ export const BlogPost = () => {
               <p>{post.likes}</p>
             </div>
             <div className={styles.action}>
-              <ModalComment isEditing={true} />
-              <p>{post.comments.length}</p>
+              <ModalComment onSuccess={handleNewComment} postId={post?.id} />
+              <p>{comments.length}</p>
             </div>
           </div>
           <Author author={post.author} />
@@ -66,7 +75,7 @@ export const BlogPost = () => {
       <div className={styles.code}>
         <ReactMarkdown>{post.markdown}</ReactMarkdown>
       </div>
-      <CommentList comments={post.comments} />
+      <CommentList comments={comments} />
     </main>
   );
 };

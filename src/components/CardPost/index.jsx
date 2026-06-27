@@ -4,11 +4,23 @@ import { ModalComment } from "../ModalComment";
 import { ThumbsUpButton } from "./ThumbsUpButton";
 import { useState } from "react";
 import { http } from "../../API";
+import {useAuth} from '../../hooks/useAuth'
 
 import { Link } from "react-router";
 
 export const CardPost = ({ post }) => {
   const [likes, setLikes] = useState(post.likes);
+  const [comments, setcomments] = useState(post.comments);
+
+  const {isAuthenticated} = useAuth()
+
+
+const handleNewComment = (comment) => {
+
+  setcomments([comment, ...comments])
+
+}
+
 
   const handleLikeButton = () => {
     const token = localStorage.getItem("access_token");
@@ -43,12 +55,12 @@ export const CardPost = ({ post }) => {
       <footer className={styles.footer}>
         <div className={styles.actions}>
           <div className={styles.action}>
-            <ThumbsUpButton loading={false} onClick={handleLikeButton} />
+            <ThumbsUpButton loading={false} onClick={handleLikeButton} disabled={!isAuthenticated} />
             <p>{likes}</p>
           </div>
           <div className={styles.action}>
-            <ModalComment />
-            <p>{post.comments.length}</p>
+            <ModalComment onSuccess={handleNewComment} postId={post.id} />
+            <p>{comments.length}</p>
           </div>
         </div>
         <Author author={post.author} />
