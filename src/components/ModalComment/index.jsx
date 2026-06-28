@@ -22,7 +22,7 @@ export const ModalComment = ({ isEditing, onSuccess, postId, defaultValue="" , c
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const text = formData.get("text");
-    const token = localStorage.getItem("access_token");
+
 
     if (!text?.toString().trim()) return;
 
@@ -35,11 +35,6 @@ export const ModalComment = ({ isEditing, onSuccess, postId, defaultValue="" , c
             `/comments/${commentId}`,
             {
               text,
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
             },
           )
 
@@ -54,11 +49,6 @@ export const ModalComment = ({ isEditing, onSuccess, postId, defaultValue="" , c
             `/comments/post/${postId}`,
             {
               text,
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
             },
           )
 

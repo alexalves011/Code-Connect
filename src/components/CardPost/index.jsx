@@ -23,17 +23,13 @@ const handleNewComment = (comment) => {
 
 
   const handleLikeButton = () => {
-    const token = localStorage.getItem("access_token");
+
 
     http
       .post(
         `blog-posts/${post.id}/like`,
         {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
+     
       )
       .then(() => {
         setLikes((oldState) => oldState + 1);
