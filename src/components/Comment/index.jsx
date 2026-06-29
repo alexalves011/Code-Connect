@@ -3,8 +3,9 @@ import { Avatar } from "../Avatar"
 import { useAuth } from '../../hooks/useAuth'
 import {ModalComment} from "../ModalComment/index"
 import { useState } from 'react'
+import { IconButton } from '../IconButton'
 
-export const Comment = ({ comment }) => {
+export const Comment = ({ comment, onDelete }) => {
 
     const [text, setText] = useState(comment.text)
 
@@ -23,5 +24,6 @@ export const Comment = ({ comment }) => {
         <p>{text}</p>
         <div className={styles.divider} 
         /> { isOwner && <ModalComment isEditing onSuccess={handleEdit} defaultValue={text} commentId={comment.id}  /> }
+        {isOwner && <IconButton onClick={() => onDelete(comment.id)}>excluir</IconButton>}
     </div>)
 }

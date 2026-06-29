@@ -12,13 +12,23 @@ import { http } from "../../API";
 export const BlogPost = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
-    const [comments, setcomments] = useState([]);
+  const [comments, setcomments] = useState([]);
 
-    const handleNewComment = (comment) => {
+  const handleNewComment = (comment) => {
+    setcomments([comment, ...comments]);
+  };
 
-  setcomments([comment, ...comments])
+  const handleDelete = (commentId) => {
+    const isConfirmed = confirm(
+      "Tem certeza que deseja apagar esse comentario ?",
+    );
 
-}
+    if (isConfirmed) {
+      http.delete(`comments/${commentId}`).then(() => {
+        setcomments((oldState) => oldState.filter((c) => c.id != commentId));
+      });
+    }
+  };
 
   const [post, setPost] = useState(null);
 
@@ -75,7 +85,7 @@ export const BlogPost = () => {
       <div className={styles.code}>
         <ReactMarkdown>{post.markdown}</ReactMarkdown>
       </div>
-      <CommentList comments={comments} />
+      <CommentList comments={comments} onDelete={handleDelete} />
     </main>
   );
 };
